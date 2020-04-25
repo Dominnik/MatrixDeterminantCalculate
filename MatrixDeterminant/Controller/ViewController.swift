@@ -13,13 +13,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var matrixSizeTextField: UITextField!
     @IBOutlet weak var matrixTextView: UITextView!
     @IBOutlet weak var determinantLabel: UILabel!
-    private var matrix = [[Double]]()
-    private var det = 0.0
-    
+    private var array = [[Double]]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     func matrixGenerate(size: Int) -> [[Double]]{
         var array = [[Double]]()
         var line: String
@@ -28,16 +27,14 @@ class ViewController: UIViewController {
             line = ""
             for column in 0..<size {
                 array[row].append(Double(arc4random_uniform(10)))
-                line += String(format: "%.0f", array[row][column])
-                line += " "
+                line += String(format: "%.0f", array[row][column]) + " "
             }
             matrixTextView.text += line + "\n"
-            print(line)
         }
         return array
     }
-    
-    func determinant (array: [[Double]]) -> Double {
+
+    func determinantCalculate (_ array: [[Double]]) -> Double {
         var det:Double = 0
         var temporary = [[Double]]()
 
@@ -49,7 +46,7 @@ class ViewController: UIViewController {
             det = ((array[0][0] * array[1][1]) - (array[0][1] * array[1][0]))
             return det
         }
-        
+
         for i in 0..<array[0].count {
             temporary = Array(repeating: Array(repeating: 0, count: array.count-1), count: array[0].count - 1)
             
@@ -62,18 +59,50 @@ class ViewController: UIViewController {
                     }
                 }
             }
-            det += array[0][i] * pow(-1, Double(i)) * determinant(array: temporary)
+            det += array[0][i] * pow(-1, Double(i)) * determinantCalculate(temporary)
         }
         return det
     }
-    
-    @IBAction func generateMatrixAction(_ sender: UIButton) {
-        matrixTextView.text = ""
-        matrix = matrixGenerate(size: Int(matrixSizeTextField.text!) ?? 0)
+
+    func showErrorAlert () {
+        let alert = UIAlertController(title: "Неверные данные",
+                                      message: "Пожалуйста, введите целое число больше 0.\n (Рекомендуемая размерность не более 10)",
+                                      preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
     }
-    
+
+    func determinantEncoding(value: Double) -> Data {
+        let determinantObject = Determinant(value: value)
+        guard let encodeData = try? JSONEncoder().encode(determinantObject) else {
+            return try! JSONEncoder().encode(Determinant(value: 0))
+        }
+        return encodeData
+    }
+
+    @IBAction func generateMatrixAction(_ sender: UIButton) {
+        guard matrixSizeTextField.text?.isEmpty == false else { return }
+        
+        if let value = Int(matrixSizeTextField.text!) {
+            guard value > 0 else {
+                showErrorAlert()
+                return
+            }
+            matrixTextView.text = ""
+            array = matrixGenerate(size: Int(matrixSizeTextField.text!) ?? 0)
+        } else {
+            showErrorAlert()
+        }
+    }
+
     @IBAction func determinantCountAction(_ sender: UIButton) {
-        det = determinant(array: matrix)
-        determinantLabel.text = String(det)
+        let determinantValue = determinantCalculate(array)
+        determinantLabel.text = String(determinantValue)
+        let data = determinantEncoding(value: determinantValue)
+        
+//        decoding
+        let product: Determinant = try! JSONDecoder().decode(Determinant.self, from: data)
+        print(product)
     }
 }

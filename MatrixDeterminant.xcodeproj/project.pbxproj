@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB6A069D2454100A00492459 /* Determinant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6A069C2454100A00492459 /* Determinant.swift */; };
 		DBC436842451B3B1007DB823 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC436832451B3B1007DB823 /* AppDelegate.swift */; };
 		DBC436862451B3B1007DB823 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC436852451B3B1007DB823 /* SceneDelegate.swift */; };
 		DBC436882451B3B1007DB823 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC436872451B3B1007DB823 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB6A069C2454100A00492459 /* Determinant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Determinant.swift; sourceTree = "<group>"; };
 		DBC436802451B3B1007DB823 /* MatrixDeterminant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatrixDeterminant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBC436832451B3B1007DB823 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBC436852451B3B1007DB823 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,6 +39,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB6A069B24540FCD00492459 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB6A069C2454100A00492459 /* Determinant.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		DBC436772451B3B1007DB823 = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +66,7 @@
 		DBC436822451B3B1007DB823 /* MatrixDeterminant */ = {
 			isa = PBXGroup;
 			children = (
+				DB6A069B24540FCD00492459 /* Model */,
 				DBC436972451B49B007DB823 /* Controller */,
 				DBC436982451B4AC007DB823 /* Supporting files */,
 			);
@@ -157,6 +168,7 @@
 				DBC436882451B3B1007DB823 /* ViewController.swift in Sources */,
 				DBC436842451B3B1007DB823 /* AppDelegate.swift in Sources */,
 				DBC436862451B3B1007DB823 /* SceneDelegate.swift in Sources */,
+				DB6A069D2454100A00492459 /* Determinant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
